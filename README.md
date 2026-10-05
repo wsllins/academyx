@@ -1,4 +1,4 @@
-# Academix 
+<img width="1917" height="947" alt="image" src="https://github.com/user-attachments/assets/acf8923a-1959-445e-9cd1-928aa78025b3" /># AcademyX 
 
 > Sistema Web para gamificação e gestão de estudos, conectando alunos e professores em disciplinas de diferentes áreas.
 
@@ -21,13 +21,12 @@
 * **Wesley Lins** - 202614320026 | [GitHub](https://github.com/wsllins)
 * **Nycolas D'leon** - 202614320023 | [GitHub](https://github.com/Nycolas-Dleon)
 * **Willians Merencio** - 202614320008 | [GitHub](https://github.com/williamsmerencio)
-* **João Pedro** - 2026143200XX | [GitHub](https://github.com/usuario3)
+* **João Pedro** - 202614320007 | [GitHub](https://github.com/Joao-Pedro-Alencar)
 
 ## Documentação e Recursos
 
-* **Pitch / Apresentação:** [Proposta]()
-* **Protótipos / Design:** [Protótipos](docs/prototypes/) | [Figma]()
-* **Documentação do Projeto:** [Docs](docs/)
+* **Pitch / Apresentação:** [Proposta](https://www.figma.com/proto/GdLwXk9rQJl6XmSPbLrDiu/Design-AcademyX?node-id=48-2647&p=f&t=sLsxqPJIDTqGZacn-0&scaling=contain&content-scaling=responsive&page-id=0%3A1)
+* **Design:** [Figma](https://www.figma.com/design/GdLwXk9rQJl6XmSPbLrDiu/Design-AcademyX?node-id=0-1&p=f&t=sLsxqPJIDTqGZacn-0)
 
 ## Funcionalidades Planejadas (Features)
 
