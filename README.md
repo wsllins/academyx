@@ -1,4 +1,4 @@
-<img width="1917" height="947" alt="image" src="https://github.com/user-attachments/assets/acf8923a-1959-445e-9cd1-928aa78025b3" /># AcademyX 
+# AcademyX 
 
 > Sistema Web para gamificação e gestão de estudos, conectando alunos e professores em disciplinas de diferentes áreas.
 
