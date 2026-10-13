@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
     root: "src",
+    publicDir: "../public",
     server: {
         port: 3000, // Porta personalizada para o servidor de desenvolvimento
     },
