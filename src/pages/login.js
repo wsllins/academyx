@@ -41,10 +41,10 @@ function learningCard() {
 }
 
 export default function renderLogin() {
-	return `<main class="grid min-h-screen w-full min-w-0 overflow-x-clip bg-[#f8faf7] font-[Inter,ui-sans-serif,system-ui] text-[#17251b] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1fr)] min-[1280px]:min-h-[1060px] min-[1280px]:grid-cols-[650px_minmax(0,790px)] min-[1280px]:justify-center">
-		<aside class="flex min-w-0 min-h-[760px] flex-col justify-between bg-[#dcfce7] px-6 py-8 sm:px-10 lg:px-12 lg:py-10 min-[1280px]:min-h-[1060px] min-[1280px]:px-16 min-[1280px]:pt-[52px] min-[1280px]:pb-10">
+	return `<main class="grid min-h-screen w-full min-w-0 overflow-x-clip bg-[#f8faf7] font-[Inter,ui-sans-serif,system-ui] text-[#17251b] lg:h-screen lg:min-h-0 lg:grid-rows-[minmax(0,1fr)] lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1fr)] min-[1280px]:grid-cols-[650px_minmax(0,790px)] min-[1280px]:justify-center">
+		<aside class="flex min-w-0 min-h-[760px] flex-col justify-between bg-[#dcfce7] px-6 py-8 sm:px-10 lg:min-h-0 lg:px-12 lg:py-6 min-[1280px]:px-16">
 			${brandMark()}
-			<div class="mx-auto flex w-full max-w-[522px] flex-col gap-5 py-10 lg:py-0">
+			<div class="mx-auto flex w-full max-w-[522px] flex-col gap-5 py-10 lg:gap-4 lg:py-0">
 				<div class="space-y-3">
 					<p class="text-[11px] font-semibold uppercase tracking-[0.04em] text-green-700">AcademyX · 2026</p>
 					<h1 class="max-w-[522px] text-[clamp(2.25rem,4vw,2.875rem)] font-bold leading-[1.15] tracking-[-0.045em] text-[#17251b]">Seu próximo avanço começa aqui.</h1>
@@ -55,13 +55,13 @@ export default function renderLogin() {
 			<p class="text-[10px] text-[#718077]">AcademyX © 2026 · Feito para evoluir</p>
 		</aside>
 
-		<section class="flex min-w-0 min-h-[680px] flex-col items-center justify-center gap-8 bg-[#f8faf7] px-5 py-12 sm:px-8 min-[1280px]:min-h-[1060px]" aria-label="Acesso à AcademyX">
-			<div class="w-full max-w-[452px] rounded-2xl border border-[#e1e9e0] bg-white p-6 shadow-[0_8px_30px_rgba(23,37,27,0.025)] sm:p-8">
+		<section class="flex min-w-0 min-h-[680px] flex-col items-center justify-center gap-8 bg-[#f8faf7] px-5 py-12 sm:px-8 lg:min-h-0 lg:gap-4 lg:py-6" aria-label="Acesso à AcademyX">
+			<div class="w-full max-w-[452px] rounded-2xl border border-[#e1e9e0] bg-white p-6 shadow-[0_8px_30px_rgba(23,37,27,0.025)] sm:p-8 lg:p-6">
 				<div class="mb-6 flex flex-col gap-2">
 					<h2 class="text-[28px] font-semibold leading-tight tracking-[-0.035em]">Bom ter você de volta.</h2>
 					<p class="text-[13px] leading-[1.45] text-[#69776d]">Entre na AcademyX com o seu e-mail.</p>
 				</div>
-				<form id="login-form" class="flex flex-col gap-5">
+				<form id="login-form" class="flex flex-col gap-5 lg:gap-4">
 					<label class="flex flex-col gap-2 text-xs font-semibold text-[#26352a]" for="email">
 						E-mail
 						<span class="flex h-12 items-center gap-2.5 rounded-[10px] border border-[#e4eae2] bg-[#f8faf7] px-[14px] text-[#718077] transition focus-within:border-green-600 focus-within:ring-2 focus-within:ring-green-100">
@@ -84,7 +84,7 @@ export default function renderLogin() {
 						</label>
 						<a id="forgot-password" href="#recuperar-senha" class="font-semibold text-[#15803d] hover:text-green-800 hover:underline">Esqueci minha senha</a>
 					</div>
-					<button type="submit" class="flex h-12 w-full items-center justify-center gap-2.5 rounded-[10px] bg-[#16a34a] px-4 text-[13px] font-semibold text-white transition hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 active:scale-[0.99]">
+					<button type="submit" class="flex h-12 w-full items-center justify-center gap-2.5 rounded-[10px] bg-[#16a34a] px-4 text-[13px] font-semibold text-white transition hover:bg-green-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 active:scale-[0.99] cursor-pointer">
 						Entrar ${icon('arrow', 'size-[18px]')}
 					</button>
 					<p id="login-feedback" class="hidden text-center text-xs text-[#66766b]" role="status" aria-live="polite"></p>
@@ -99,7 +99,7 @@ export default function renderLogin() {
 					<p class="text-[10px] leading-[1.5] text-[#68766c]">Você é livre para escolher suas disciplinas e organizar seu tempo da maneira que preferir. Não é necessário limitar seu número de matérias.<p>
 				</div>
 			</div>
-			<p class="text-center text-[11px] text-[#718077]">Precisa de ajuda? Fale com sua instituição.</p>
+			<p href="#ajuda" class="text-center text-[11px] text-[#718077] hover:text-green-800 hover:underline cursor-pointer">Precisa de ajuda?</p>
 		</section>
 	</main>`;
 }
