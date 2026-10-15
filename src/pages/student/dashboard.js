@@ -37,6 +37,12 @@ const detailRows = [
 	['Biologia', 'Prof. Bruno Mendes', '1h 00min', '1h 00min', '30min', '2h 30min'],
 ];
 
+const questionAccuracy = [
+	{ subject: 'Biologia', correct: 15, total: 20, accuracy: 75, barWidth: 'w-3/4' },
+	{ subject: 'Matemática', correct: 32, total: 40, accuracy: 80, barWidth: 'w-4/5' },
+	{ subject: 'Português', correct: 17, total: 20, accuracy: 85, barWidth: 'w-[85%]' },
+];
+
 function sidebar() {
 	return `<aside class="fixed inset-y-0 left-0 z-20 flex w-[232px] flex-col border-r border-[#e0e8df] bg-white px-[17px] py-[25px] max-[760px]:w-[190px] max-[760px]:px-3 max-[640px]:w-16 max-[640px]:items-center max-[640px]:px-1.5 max-[640px]:py-3" aria-label="Navegação principal">
 		<a class="mb-[34px] flex h-[52px] cursor-pointer items-center max-[640px]:mb-5 max-[640px]:h-10" href="#/student/dashboard" aria-label="AcademyX, dashboard">
@@ -124,6 +130,22 @@ function activityBreakdown() {
 	</div>`).join('')}</div>`;
 }
 
+function questionAccuracyChart() {
+	return `<section class="col-span-full min-w-0 rounded-[17px] border border-[#e0e8df] bg-white p-[21px] max-[760px]:col-auto max-[400px]:p-3" aria-labelledby="ax-accuracy-heading">
+		<div class="flex flex-wrap items-start justify-between gap-4">
+			<div><h2 id="ax-accuracy-heading" class="m-0 text-lg leading-[1.3] font-normal tracking-[-0.25px]">Precisão das questões por disciplina</h2><p class="mt-1 text-[10px] text-[#68766c]">Percentual de acertos nas questões resolvidas · Semana selecionada</p></div>
+			<div class="rounded-[10px] bg-[#dcfce7] px-3 py-2 text-right"><strong class="block text-lg font-bold text-[#078337]">80%</strong><span class="text-[9px] text-[#68766c]">64 de 80 acertos</span></div>
+		</div>
+		<div class="mt-5 grid gap-4" role="list" aria-label="Precisão em ordem alfabética por disciplina">
+			${questionAccuracy.map(({ subject, correct, total, accuracy, barWidth }) => `<div class="grid grid-cols-[minmax(100px,150px)_minmax(0,1fr)_auto] items-center gap-4 max-[400px]:grid-cols-[minmax(0,1fr)_auto] max-[400px]:gap-x-3 max-[400px]:gap-y-2" role="listitem">
+				<strong class="text-[11px] font-semibold">${subject}</strong>
+				<div class="h-2 overflow-hidden rounded-full bg-[#f0f4ef] max-[400px]:col-span-2 max-[400px]:row-start-2"><div class="h-full ${barWidth} rounded-full bg-[#12a34a]" role="progressbar" aria-label="${subject}: ${accuracy}% de acertos" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${accuracy}"></div></div>
+				<span class="whitespace-nowrap text-right text-[10px] text-[#68766c]">${correct}/${total} <strong class="ml-1 text-[#078337]">${accuracy}%</strong></span>
+			</div>`).join('')}
+		</div>
+	</section>`;
+}
+
 export default function renderStudentDashboard() {
 	return `<div class="h-dvh w-full min-w-[320px] overflow-hidden bg-[#f7faf7] font-[Inter,ui-sans-serif,system-ui] text-[#19241c]">
 		${sidebar()}
@@ -181,6 +203,8 @@ export default function renderStudentDashboard() {
 
 					<section class="min-h-[300px] min-w-0 rounded-[17px] border border-[#e0e8df] bg-white p-[21px] max-[400px]:p-3"><div><h2 class="m-0 text-lg leading-[1.3] font-normal tracking-[-0.25px]">Cada disciplina, em detalhe</h2><p class="mt-1 text-[10px] text-[#68766c]">Como você dividiu seu tempo · 05–11 out. 2026</p></div>${disciplineTable()}</section>
 					<section class="min-h-[300px] min-w-0 rounded-[17px] border border-[#e0e8df] bg-white p-[21px] max-[400px]:p-3"><div><h2 class="m-0 text-lg leading-[1.3] font-normal tracking-[-0.25px]">Como você estudou</h2><p class="mt-1 text-[10px] text-[#68766c]">Distribuição por atividade · 10h no total</p></div>${activityBreakdown()}<p class="mt-[21px] text-[9px] leading-[1.5] text-[#68766c]">Somente tempo efetivo das sessões concluídas, sem contar pausas.</p></section>
+
+					${questionAccuracyChart()}
 
 					<section class="col-span-full min-w-0 rounded-[17px] border border-[#e0e8df] bg-white p-[21px] max-[760px]:col-auto max-[400px]:p-3">
 						<div class="flex items-center justify-between gap-3"><div><h2 class="m-0 text-lg leading-[1.3] font-normal tracking-[-0.25px]">Seu histórico de sessões</h2><p class="mt-1 text-[10px] text-[#68766c]">Todas as sessões de 05–11 out. 2026 · Mais recentes primeiro</p></div><span class="whitespace-nowrap rounded-lg bg-[#dcfce7] px-2.5 py-1.5 text-[9px] font-semibold text-[#078337]">9 concluídas</span></div>
