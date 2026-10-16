@@ -164,16 +164,21 @@ export default function renderStudentDashboard() {
 					<button class="flex h-[43px] shrink-0 cursor-pointer items-center gap-2 rounded-[11px] border-0 bg-[#12a34a] px-4 text-xs font-semibold text-white" type="button">${icon('play', 'block size-[17px] shrink-0')}Continuar estudando</button>
 				</div>
 
-				<div class="mb-[22px] flex items-center justify-between gap-4 max-[760px]:flex-col max-[760px]:items-start max-[400px]:w-full">
-					<div class="flex h-10 w-[226px] items-center rounded-[11px] bg-[#f0f4ef] p-1" role="group" aria-label="Filtrar período">
-						<button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="day" aria-pressed="false">Dia</button><button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-white text-[11px] font-semibold text-[#078337]" type="button" data-period="week" aria-pressed="true">Semana</button><button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="month" aria-pressed="false">Mês</button>
+				<div class="relative mb-[22px] flex items-center justify-between gap-4 max-[760px]:flex-col max-[760px]:items-start max-[400px]:w-full">
+					<div class="flex h-10 w-[260px] items-center rounded-[11px] bg-[#f0f4ef] p-1" role="group" aria-label="Filtrar período">
+						<button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="day" aria-pressed="false">Dia</button><button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-white text-[11px] font-semibold text-[#078337]" type="button" data-period="week" aria-pressed="true">Semana</button><button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="month" aria-pressed="false">Mês</button><button class="group relative grid h-8 w-9 shrink-0 cursor-pointer place-items-center rounded-[9px] border-0 bg-transparent text-[#68766c]" type="button" data-period="custom" aria-pressed="false" aria-label="Personalizado"><span class="sr-only">Personalizado</span>${icon('calendar', 'block size-4 shrink-0')}<span class="pointer-events-none absolute left-1/2 top-[-34px] z-20 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-[#243027] px-2 py-1 text-[10px] font-medium text-white shadow-sm group-hover:block group-focus-visible:block" role="tooltip">Personalizado</span></button>
 					</div>
-					<div class="flex items-center gap-3.5 text-[10px] text-[#68766c] max-[760px]:w-full max-[760px]:justify-between max-[400px]:flex-col max-[400px]:items-start max-[400px]:gap-2"><span id="ax-period-caption">Semana selecionada</span><div class="flex h-10 items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-white px-2 text-[#68766c] max-[400px]:w-full max-[400px]:justify-between">
+					<div class="flex flex-wrap items-center gap-3.5 text-[10px] text-[#68766c] max-[760px]:w-full max-[760px]:justify-between max-[400px]:flex-col max-[400px]:items-start max-[400px]:gap-2"><span id="ax-period-caption">Semana selecionada</span><div class="flex min-h-10 items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-white px-2 text-[#68766c] max-[400px]:w-full max-[400px]:justify-between">
 						<button class="grid size-[22px] cursor-pointer place-items-center border-0 bg-transparent p-0" type="button" data-date-step="-1" aria-label="Período anterior">${icon('chevronLeft', 'block size-4 shrink-0')}</button>
-						${icon('calendar', 'block size-[17px] shrink-0')}
 						<strong id="ax-date-range" class="min-w-[94px] whitespace-nowrap text-center text-[11px] font-medium text-[#243027]">05–11 out. 2026</strong>
 						<button class="grid size-[22px] cursor-pointer place-items-center border-0 bg-transparent p-0" type="button" data-date-step="1" aria-label="Próximo período">${icon('chevronRight', 'block size-4 shrink-0')}</button>
+						<div class="hidden items-center gap-2" data-custom-range>
+							<label class="flex items-center gap-1 whitespace-nowrap text-[9px]">De <input class="w-[112px] rounded-md border border-[#e0e8df] bg-white px-1.5 py-1 text-[10px] text-[#243027] outline-none focus:border-[#12a34a] max-[400px]:w-[94px]" type="date" data-range-start aria-label="Data inicial"></label>
+							<label class="flex items-center gap-1 whitespace-nowrap text-[9px]">Até <input class="w-[112px] rounded-md border border-[#e0e8df] bg-white px-1.5 py-1 text-[10px] text-[#243027] outline-none focus:border-[#12a34a] max-[400px]:w-[94px]" type="date" data-range-end aria-label="Data final"></label>
+							<button class="cursor-pointer rounded-md border-0 bg-transparent px-1.5 py-1 text-[10px] font-medium text-[#078337] hover:bg-[#f0f4ef] focus-visible:outline-2 focus-visible:outline-[#12a34a]" type="button" data-clear-range>Limpar</button>
+						</div>
 					</div></div>
+					<span class="absolute right-0 top-[calc(100%+4px)] z-30 hidden max-w-full rounded-lg border border-[#fecaca] bg-white px-3 py-2 text-right text-[10px] leading-4 text-[#b42318] shadow-lg" data-range-error role="alert"></span>
 				</div>
 
 				<section class="mb-[22px] grid grid-cols-3 gap-5 max-[1100px]:gap-3 max-[900px]:grid-cols-2 max-[640px]:grid-cols-1" aria-label="Resumo acadêmico">
@@ -221,8 +226,41 @@ export function bindStudentDashboard(root) {
 	const periodButtons = [...root.querySelectorAll('[data-period]')];
 	const caption = root.querySelector('#ax-period-caption');
 	const range = root.querySelector('#ax-date-range');
+	const customRange = root.querySelector('[data-custom-range]');
+	const rangeStart = root.querySelector('[data-range-start]');
+	const rangeEnd = root.querySelector('[data-range-end]');
+	const rangeError = root.querySelector('[data-range-error]');
+	const clearRangeButton = root.querySelector('[data-clear-range]');
+	const dateStepButtons = [...root.querySelectorAll('[data-date-step]')];
 	let period = 'week';
 	let anchorDate = new Date(2026, 9, 5);
+	let customStart = '2026-10-05';
+	let customEnd = '';
+
+	if (rangeStart) rangeStart.value = customStart;
+	if (rangeEnd) rangeEnd.value = '';
+
+	const formatCustomRange = (startValue, endValue) => {
+		const formatDate = (value) => {
+			const [year, month, day] = value.split('-').map(Number);
+			return new Date(year, month - 1, day).toLocaleDateString('pt-BR');
+		};
+		return `${formatDate(startValue)}–${formatDate(endValue)}`;
+	};
+
+	const customRangeDays = (startValue, endValue) => {
+		const toUtcDay = (value) => {
+			const [year, month, day] = value.split('-').map(Number);
+			return Date.UTC(year, month - 1, day);
+		};
+		return (toUtcDay(endValue) - toUtcDay(startValue)) / 86400000 + 1;
+	};
+
+	const shiftDate = (value, days) => {
+		const [year, month, day] = value.split('-').map(Number);
+		const date = new Date(Date.UTC(year, month - 1, day + days));
+		return date.toISOString().slice(0, 10);
+	};
 
 	const formatRange = () => {
 		if (period === 'day') {
@@ -242,11 +280,22 @@ export function bindStudentDashboard(root) {
 	};
 
 	const updateDate = () => {
-		if (range) range.textContent = formatRange();
+		const isCustom = period === 'custom';
+		if (range) {
+			range.classList.toggle('hidden', isCustom);
+			if (!isCustom) range.textContent = formatRange();
+			else if (customStart && customEnd && customStart <= customEnd && customRangeDays(customStart, customEnd) <= 30) {
+				range.textContent = formatCustomRange(customStart, customEnd);
+			}
+		}
+		customRange?.classList.toggle('hidden', !isCustom);
+		customRange?.classList.toggle('flex', isCustom);
+		dateStepButtons.forEach((button) => button.classList.toggle('hidden', isCustom));
 		if (caption) caption.textContent = {
 			day: 'Dia selecionado',
 			week: 'Semana selecionada',
 			month: 'Mês selecionado',
+			custom: 'Período personalizado',
 		}[period];
 	};
 
@@ -261,7 +310,87 @@ export function bindStudentDashboard(root) {
 			item.setAttribute('aria-pressed', String(selected));
 		});
 		updateDate();
+		if (period === 'custom') {
+			updateCustomRange();
+		} else if (rangeError) {
+			rangeError.textContent = '';
+			rangeError.classList.add('hidden');
+		}
 	}));
+
+	const updateCustomRange = () => {
+		if (!rangeStart || !rangeEnd) return;
+		customStart = rangeStart.value;
+		customEnd = rangeEnd.value;
+		const updateDateConstraints = () => {
+			if (customStart) {
+				rangeEnd.min = customStart;
+				rangeEnd.max = shiftDate(customStart, 29);
+			} else {
+				rangeEnd.removeAttribute('min');
+				rangeEnd.removeAttribute('max');
+			}
+			if (customEnd) {
+				rangeStart.min = shiftDate(customEnd, -29);
+				rangeStart.max = customEnd;
+			} else {
+				rangeStart.removeAttribute('min');
+				rangeStart.removeAttribute('max');
+			}
+		};
+		updateDateConstraints();
+		if (!customStart || !customEnd) {
+			rangeError.textContent = 'Selecione uma data inicial e uma data final.';
+			rangeError.classList.remove('hidden');
+			if (range) range.textContent = '';
+			return;
+		}
+		if (customStart > customEnd) {
+			if (document.activeElement === rangeStart) {
+				customEnd = customStart;
+				rangeEnd.value = customEnd;
+			} else {
+				customStart = customEnd;
+				rangeStart.value = customStart;
+			}
+			rangeError.textContent = 'As datas foram ajustadas para manter a data inicial antes da final.';
+			rangeError.classList.remove('hidden');
+		} else if (customRangeDays(customStart, customEnd) > 30) {
+			if (document.activeElement === rangeStart) {
+				customEnd = shiftDate(customStart, 29);
+				rangeEnd.value = customEnd;
+			} else {
+				customStart = shiftDate(customEnd, -29);
+				rangeStart.value = customStart;
+			}
+			rangeError.textContent = 'O período foi ajustado ao limite máximo de 30 dias.';
+			rangeError.classList.remove('hidden');
+		} else {
+			rangeError.textContent = '';
+			rangeError.classList.add('hidden');
+		}
+		updateDateConstraints();
+		if (customStart && customEnd && customStart <= customEnd && customRangeDays(customStart, customEnd) <= 30) {
+			if (range) range.textContent = formatCustomRange(customStart, customEnd);
+		}
+	};
+
+	rangeStart?.addEventListener('change', updateCustomRange);
+	rangeEnd?.addEventListener('change', updateCustomRange);
+	clearRangeButton?.addEventListener('click', () => {
+		customStart = '';
+		customEnd = '';
+		rangeStart.value = '';
+		rangeEnd.value = '';
+		rangeStart.removeAttribute('min');
+		rangeStart.removeAttribute('max');
+		rangeEnd.removeAttribute('min');
+		rangeEnd.removeAttribute('max');
+		rangeError.textContent = '';
+		rangeError.classList.add('hidden');
+		if (range) range.textContent = '';
+		rangeStart.focus();
+	});
 
 	root.querySelectorAll('[data-date-step]').forEach((button) => button.addEventListener('click', () => {
 		const direction = Number(button.dataset.dateStep);
