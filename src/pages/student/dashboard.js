@@ -165,10 +165,10 @@ export default function renderStudentDashboard() {
 				</div>
 
 				<div class="relative mb-[22px] flex items-center justify-between gap-4 max-[760px]:flex-col max-[760px]:items-start max-[400px]:w-full">
-					<div class="flex h-10 w-[260px] items-center rounded-[11px] bg-[#f0f4ef] p-1" role="group" aria-label="Filtrar período">
-						<button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="day" aria-pressed="false">Dia</button><button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-white text-[11px] font-semibold text-[#078337]" type="button" data-period="week" aria-pressed="true">Semana</button><button class="h-8 flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="month" aria-pressed="false">Mês</button><button class="group relative grid h-8 w-9 shrink-0 cursor-pointer place-items-center rounded-[9px] border-0 bg-transparent text-[#68766c]" type="button" data-period="custom" aria-pressed="false" aria-label="Personalizado"><span class="sr-only">Personalizado</span>${icon('calendar', 'block size-4 shrink-0')}<span class="pointer-events-none absolute left-1/2 top-[-34px] z-20 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-[#243027] px-2 py-1 text-[10px] font-medium text-white shadow-sm group-hover:block group-focus-visible:block" role="tooltip">Personalizado</span></button>
+					<div class="flex min-h-10 w-[370px] max-w-full flex-wrap items-center rounded-[11px] bg-[#f0f4ef] p-1" role="group" aria-label="Filtrar período">
+						<button class="h-8 min-w-[50px] flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="day" aria-pressed="false">Dia</button><button class="h-8 min-w-[50px] flex-1 cursor-pointer rounded-[9px] border-0 bg-white text-[11px] font-semibold text-[#078337]" type="button" data-period="week" aria-pressed="true">Semana</button><button class="h-8 min-w-[50px] flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="month" aria-pressed="false">Mês</button><button class="h-8 min-w-[50px] flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="semester" aria-pressed="false">Semestre</button><button class="h-8 min-w-[50px] flex-1 cursor-pointer rounded-[9px] border-0 bg-transparent text-[11px] text-[#68766c]" type="button" data-period="total" aria-pressed="false">Total</button><button class="group relative grid h-8 w-9 shrink-0 cursor-pointer place-items-center rounded-[9px] border-0 bg-transparent text-[#68766c]" type="button" data-period="custom" aria-pressed="false" aria-label="Personalizado"><span class="sr-only">Personalizado</span>${icon('calendar', 'block size-4 shrink-0')}<span class="pointer-events-none absolute left-1/2 top-[-34px] z-20 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-[#243027] px-2 py-1 text-[10px] font-medium text-white shadow-sm group-hover:block group-focus-visible:block" role="tooltip">Personalizado</span></button>
 					</div>
-					<div class="flex flex-wrap items-center gap-3.5 text-[10px] text-[#68766c] max-[760px]:w-full max-[760px]:justify-between max-[400px]:flex-col max-[400px]:items-start max-[400px]:gap-2"><span id="ax-period-caption">Semana selecionada</span><div class="flex min-h-10 items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-white px-2 text-[#68766c] max-[400px]:w-full max-[400px]:justify-between">
+					<div class="flex flex-wrap items-center gap-3.5 text-[10px] text-[#68766c] max-[760px]:w-full max-[760px]:justify-between max-[400px]:flex-col max-[400px]:items-start max-[400px]:gap-2"><span id="ax-period-caption">Semana selecionada</span><div class="flex min-h-10 items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-white px-2 text-[#68766c] max-[400px]:w-full max-[400px]:justify-between" data-date-controls>
 						<button class="grid size-[22px] cursor-pointer place-items-center border-0 bg-transparent p-0" type="button" data-date-step="-1" aria-label="Período anterior">${icon('chevronLeft', 'block size-4 shrink-0')}</button>
 						<strong id="ax-date-range" class="min-w-[94px] whitespace-nowrap text-center text-[11px] font-medium text-[#243027]">05–11 out. 2026</strong>
 						<button class="grid size-[22px] cursor-pointer place-items-center border-0 bg-transparent p-0" type="button" data-date-step="1" aria-label="Próximo período">${icon('chevronRight', 'block size-4 shrink-0')}</button>
@@ -226,6 +226,7 @@ export function bindStudentDashboard(root) {
 	const periodButtons = [...root.querySelectorAll('[data-period]')];
 	const caption = root.querySelector('#ax-period-caption');
 	const range = root.querySelector('#ax-date-range');
+	const dateControls = root.querySelector('[data-date-controls]');
 	const customRange = root.querySelector('[data-custom-range]');
 	const rangeStart = root.querySelector('[data-range-start]');
 	const rangeEnd = root.querySelector('[data-range-end]');
@@ -269,6 +270,13 @@ export function bindStudentDashboard(root) {
 		if (period === 'month') {
 			return anchorDate.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
 		}
+		if (period === 'semester') {
+			const firstMonth = anchorDate.getMonth() < 6 ? 0 : 6;
+			const start = new Date(anchorDate.getFullYear(), firstMonth, 1);
+			const end = new Date(anchorDate.getFullYear(), firstMonth + 6, 0);
+			const formatMonth = (date) => date.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
+			return `${String(start.getDate()).padStart(2, '0')} ${formatMonth(start)} – ${String(end.getDate()).padStart(2, '0')} ${formatMonth(end)}. ${end.getFullYear()}`;
+		}
 		const start = new Date(anchorDate);
 		start.setDate(start.getDate() - ((start.getDay() + 6) % 7));
 		const end = new Date(start);
@@ -281,20 +289,27 @@ export function bindStudentDashboard(root) {
 
 	const updateDate = () => {
 		const isCustom = period === 'custom';
+		const isTotal = period === 'total';
+		dateControls?.classList.toggle('hidden', isTotal);
 		if (range) {
 			range.classList.toggle('hidden', isCustom);
-			if (!isCustom) range.textContent = formatRange();
-			else if (customStart && customEnd && customStart <= customEnd && customRangeDays(customStart, customEnd) <= 30) {
-				range.textContent = formatCustomRange(customStart, customEnd);
+			if (isCustom) {
+				if (customStart && customEnd && customStart <= customEnd && customRangeDays(customStart, customEnd) <= 30) {
+					range.textContent = formatCustomRange(customStart, customEnd);
+				}
+			} else if (!isTotal) {
+				range.textContent = formatRange();
 			}
 		}
 		customRange?.classList.toggle('hidden', !isCustom);
 		customRange?.classList.toggle('flex', isCustom);
-		dateStepButtons.forEach((button) => button.classList.toggle('hidden', isCustom));
+		dateStepButtons.forEach((button) => button.classList.toggle('hidden', isCustom || isTotal));
 		if (caption) caption.textContent = {
 			day: 'Dia selecionado',
 			week: 'Semana selecionada',
 			month: 'Mês selecionado',
+			semester: 'Semestre selecionado',
+			total: 'Todo o período',
 			custom: 'Período personalizado',
 		}[period];
 	};
@@ -395,7 +410,12 @@ export function bindStudentDashboard(root) {
 	root.querySelectorAll('[data-date-step]').forEach((button) => button.addEventListener('click', () => {
 		const direction = Number(button.dataset.dateStep);
 		if (period === 'day') anchorDate.setDate(anchorDate.getDate() + direction);
-		else if (period === 'month') anchorDate.setMonth(anchorDate.getMonth() + direction);
+		else if (period === 'month' || period === 'semester') {
+			const day = anchorDate.getDate();
+			anchorDate.setDate(1);
+			anchorDate.setMonth(anchorDate.getMonth() + direction * (period === 'semester' ? 6 : 1));
+			anchorDate.setDate(Math.min(day, new Date(anchorDate.getFullYear(), anchorDate.getMonth() + 1, 0).getDate()));
+		}
 		else anchorDate.setDate(anchorDate.getDate() + direction * 7);
 		updateDate();
 	}));
