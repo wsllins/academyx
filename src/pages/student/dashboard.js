@@ -1,3 +1,5 @@
+import { renderStudentHeader, renderStudentSidebar, bindStudentShell } from '../../components/header.js';
+
 const iconPaths = {
 	building: '<path d="M3 21h18M5 21V7l7-4v18m7 0V11l-7-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M15 13v.01M15 16v.01"/>',
 	grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
@@ -147,17 +149,10 @@ function questionAccuracyChart() {
 }
 
 export default function renderStudentDashboard() {
-	return `<div class="h-dvh w-full min-w-[320px] overflow-hidden bg-[#f7faf7] font-[Inter,ui-sans-serif,system-ui] text-[#19241c]">
-		${sidebar()}
+	return `<div class="h-dvh w-full min-w-0 overflow-hidden bg-[#f7faf7] font-[Inter,ui-sans-serif,system-ui] text-[#19241c]">
+		${renderStudentSidebar('dashboard')}
 		<div class="ml-[232px] flex h-full min-w-0 flex-col max-[760px]:ml-[190px] max-[640px]:ml-16">
-			<header class="z-10 flex h-[88px] min-h-[88px] items-center justify-between gap-6 border-b border-[#e2e9e1] bg-white px-8 max-[1100px]:px-4 max-[760px]:h-[70px] max-[760px]:min-h-[70px] max-[760px]:gap-3 max-[760px]:px-4 max-[640px]:h-14 max-[640px]:min-h-14 max-[640px]:px-3">
-				<div class="whitespace-nowrap text-xs max-[640px]:hidden">Aluno / Dashboard</div>
-				<div class="flex items-center gap-[23px] max-[760px]:gap-[9px]">
-					<label class="flex h-10 w-[308px] items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-[#f8faf7] px-[11px] text-[#68766c] max-[1100px]:w-[min(210px,34vw)]"><span class="pointer-events-none">${icon('search', 'block size-[17px] shrink-0')}</span><input class="w-full min-w-0 bg-transparent text-xs text-[#19241c] outline-none placeholder:text-[#68766c]" type="search" placeholder="Buscar na plataforma..." aria-label="Buscar na plataforma"></label>
-					<button class="grid h-8 w-[30px] cursor-pointer place-items-center border-0 border-r border-[#e0e8df] bg-transparent pr-[18px] text-[#68766c] max-[760px]:hidden" type="button" aria-label="Notificações">${icon('bell', 'block size-[21px] shrink-0')}</button>
-					<div class="flex items-center gap-2.5 whitespace-nowrap"><span class="grid size-9 place-items-center rounded-full bg-[#dcfce7] text-[10px] font-semibold text-[#078337]">LO</span><span class="max-[760px]:hidden"><strong class="block text-[11px] font-semibold">Lucas Oliveira</strong><small class="mt-0.5 block text-[9px] text-[#68766c]">Aluno</small></span></div>
-				</div>
-			</header>
+			${renderStudentHeader('Dashboard')}
 			<main class="min-w-0 flex-1 overflow-auto px-8 py-[31px] [scrollbar-color:#c4d0c5_transparent] [scrollbar-width:thin] max-[1100px]:px-6 max-[760px]:px-4 max-[760px]:py-[22px] max-[640px]:px-3 max-[640px]:py-4">
 				<div class="mb-[22px] flex items-center justify-between gap-5 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-[14px]">
 					<div><h1 class="m-0 text-[30px] leading-[1.25] font-bold tracking-[-1.1px] max-[1100px]:text-[26px] max-[760px]:text-[23px]">Seu esforço, seu próximo avanço.</h1><p class="mt-[7px] text-sm text-[#68766c] max-[760px]:text-xs">Olá, Lucas. Acompanhe seu ritmo e descubra como você está aprendendo.</p></div>
@@ -223,6 +218,7 @@ export default function renderStudentDashboard() {
 }
 
 export function bindStudentDashboard(root) {
+	bindStudentShell(root);
 	const periodButtons = [...root.querySelectorAll('[data-period]')];
 	const caption = root.querySelector('#ax-period-caption');
 	const range = root.querySelector('#ax-date-range');

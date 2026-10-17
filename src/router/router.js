@@ -1,10 +1,12 @@
 import renderLogin, { bindLoginInteractions } from '../pages/login.js';
 import renderStudentDashboard, { bindStudentDashboard } from '../pages/student/dashboard.js';
+import renderStudentFocus, { bindStudentFocus } from '../pages/student/focus.js';
 
 const routes = {
 	'/login': renderLogin,
 	'/': renderLogin,
 	'/student/dashboard': renderStudentDashboard,
+	'/student/focus': renderStudentFocus,
 };
 
 export function startRouter(root) {
@@ -14,6 +16,8 @@ export function startRouter(root) {
 		root.innerHTML = renderPage();
 		if (path === '/student/dashboard') {
 			bindStudentDashboard(root);
+		} else if (path === '/student/focus') {
+			bindStudentFocus(root);
 		} else {
 			bindLoginInteractions(root);
 		}
