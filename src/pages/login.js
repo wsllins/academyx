@@ -1,5 +1,6 @@
 import { authenticate } from '../services/api-service.js';
 import { setCurrentUser } from '../state/auth-state.js';
+import { bindThemeToggle, renderThemeToggle } from '../components/header.js';
 
 const icon = (name, className = 'size-5') => {
 	const paths = {
@@ -18,7 +19,7 @@ const icon = (name, className = 'size-5') => {
 
 function brandMark() {
 	return `<div class="flex items-center gap-3" aria-label="AcademyX">
-		<img src="/logo.svg" alt="AcademyX — Aprender é avançar" class="h-10 w-[196px] object-contain object-left" />
+		<img src="/logo.svg" data-logo-light="/logo.svg" data-logo-dark="/logo-dark.svg" alt="AcademyX — Aprender é avançar" class="h-10 w-[196px] object-contain object-left" />
 	</div>`;
 }
 
@@ -104,12 +105,16 @@ export default function renderLogin() {
 					<p class="text-[10px] leading-[1.5] text-[#68766c]">Você é livre para escolher suas disciplinas e organizar seu tempo da maneira que preferir. Não é necessário limitar seu número de matérias.<p>
 				</div>
 			</div>
-			<p href="#ajuda" class="text-center text-[11px] text-[#718077] hover:text-green-800 hover:underline cursor-pointer">Precisa de ajuda?</p>
+			<div class="flex w-full max-w-[452px] flex-col items-center gap-3">
+				<p href="#ajuda" class="text-center text-[11px] text-[#718077] hover:text-green-800 hover:underline cursor-pointer">Precisa de ajuda?</p>
+				${renderThemeToggle('flex min-h-10 w-full max-w-[220px] cursor-pointer items-center gap-3 rounded-xl border border-[#e1e9e0] bg-white px-4 py-2.5 text-xs text-[#68766c] transition-colors hover:border-[#8b5cf6]', 'font-medium')}
+			</div>
 		</section>
 	</main>`;
 }
 
 export function bindLoginInteractions(root) {
+	bindThemeToggle(root);
 	const password = root.querySelector('#password');
 	const toggle = root.querySelector('#toggle-password');
 	const form = root.querySelector('#login-form');

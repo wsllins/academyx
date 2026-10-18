@@ -15,6 +15,10 @@ const iconPaths = {
 
 const icon = (name, className = 'block size-5 shrink-0') => `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name]}</svg>`;
 
+export function renderThemeToggle(className = 'flex min-h-7 cursor-pointer items-center gap-2.5 border-b border-[#e0e8df] pb-3 max-[640px]:w-full max-[640px]:justify-center max-[640px]:gap-2 max-[640px]:pb-2', labelClassName = 'max-[640px]:hidden') {
+	return `<label class="${className}" title="Alternar tema claro ou escuro">${icon('moon', 'block size-4 shrink-0')}<span class="${labelClassName}" data-theme-label>Tema claro</span><input class="peer sr-only" type="checkbox" data-theme-toggle aria-label="Ativar tema escuro"><span class="relative ml-auto inline-flex h-4 w-7 shrink-0 rounded-full bg-[#d5dfd5] transition-colors after:absolute after:left-[2px] after:top-[2px] after:size-3 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-[#8b5cf6] peer-checked:after:translate-x-3 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#8b5cf6] max-[640px]:ml-0" aria-hidden="true"></span></label>`;
+}
+
 export function renderStudentSidebar(activePage = 'dashboard') {
     const navLink = (page, label, iconName, href) => {
         const active = activePage === page;
@@ -45,12 +49,7 @@ export function renderStudentSidebar(activePage = 'dashboard') {
         </div>
         
         <div class="mt-auto grid gap-[13px] text-[11px] text-[#68766c] max-[640px]:w-full max-[640px]:justify-items-center">
-            <label class="flex min-h-7 cursor-pointer items-center gap-2.5 border-b border-[#e0e8df] pb-3 max-[640px]:w-full max-[640px]:justify-center max-[640px]:gap-2 max-[640px]:pb-2" title="Alternar tema claro ou escuro">
-                ${icon('moon', 'block size-4 shrink-0')}
-                <span class="max-[640px]:hidden" data-theme-label>Tema claro</span>
-                <input class="peer sr-only" type="checkbox" data-theme-toggle aria-label="Ativar tema escuro">
-                <span class="relative ml-auto inline-flex h-4 w-7 shrink-0 rounded-full bg-[#d5dfd5] transition-colors after:absolute after:left-[2px] after:top-[2px] after:size-3 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-[#8b5cf6] peer-checked:after:translate-x-3 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#8b5cf6] max-[640px]:ml-0" aria-hidden="true"></span>
-            </label>
+			${renderThemeToggle()}
             <a class="cursor-pointer text-inherit hover:text-green-800 hover:underline max-[640px]:hidden" href="#" aria-disabled="true">Central de ajuda</a>
             <a class="cursor-pointer text-inherit hover:text-green-800 hover:underline max-[640px]:hidden" href="#/login">Sair da conta</a>
             <a class="hidden cursor-pointer text-[#68766c] max-[640px]:block" href="#/login" aria-label="Sair da conta">${icon('logout', 'block size-[19px] shrink-0')}</a>
@@ -69,6 +68,16 @@ export function renderStudentHeader(pageLabel = 'Dashboard') {
 }
 
 export function bindStudentShell(root) {
+	bindThemeToggle(root);
+	root.querySelectorAll('[aria-disabled="true"]').forEach((link) => link.addEventListener('click', (event) => event.preventDefault()));
+	root.querySelectorAll('a[href="#/login"]').forEach((link) => link.addEventListener('click', (event) => {
+		event.preventDefault();
+		clearCurrentUser();
+		window.location.hash = '/login';
+	}));
+}
+
+export function bindThemeToggle(root) {
 	const toggle = root.querySelector('[data-theme-toggle]');
 	const label = root.querySelector('[data-theme-label]');
 	const logo = root.querySelector('[data-logo-light]');
@@ -80,6 +89,7 @@ export function bindStudentShell(root) {
 		toggle.checked = isDark;
 		if (logo) logo.src = isDark ? logo.dataset.logoDark : logo.dataset.logoLight;
 		if (label) label.textContent = isDark ? 'Tema escuro' : 'Tema claro';
+		toggle.setAttribute('aria-label', isDark ? 'Ativar tema claro' : 'Ativar tema escuro');
 	};
 	toggle.addEventListener('change', () => {
 		isDark = toggle.checked;
@@ -87,10 +97,4 @@ export function bindStudentShell(root) {
 		applyTheme();
 	});
 	applyTheme();
-	root.querySelectorAll('[aria-disabled="true"]').forEach((link) => link.addEventListener('click', (event) => event.preventDefault()));
-	root.querySelectorAll('a[href="#/login"]').forEach((link) => link.addEventListener('click', (event) => {
-		event.preventDefault();
-		clearCurrentUser();
-		window.location.hash = '/login';
-	}));
 }
