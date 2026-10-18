@@ -64,3 +64,114 @@
 #app[data-theme="dark"] [class*="hover:text-green-800"]:hover { color: var(--ax-violet-light); }
 #app[data-theme="dark"] input,
 #app[data-theme="dark"] select { color-scheme: dark; }
+
+/*Modo Escuro Para Página de Disciplinas*/
+
+#app[data-theme="dark"] .bg-\[\#f7faf7\] {
+    background-color: var(--ax-canvas) !important;
+}
+
+#app[data-theme="dark"] .text-gray-900,
+#app[data-theme="dark"] .text-gray-800,
+#app[data-theme="dark"] .text-gray-700,
+#app[data-theme="dark"] .text-\[\#19241c\] {
+    color: var(--ax-text) !important;
+}
+
+#app[data-theme="dark"] .text-gray-500,
+#app[data-theme="dark"] .text-gray-600,
+#app[data-theme="dark"] .text-gray-400,
+#app[data-theme="dark"] .text-\[\#526056\],
+#app[data-theme="dark"] .text-\[\#6b7a6f\],
+#app[data-theme="dark"] .text-emerald-800,
+#app[data-theme="dark"] .text-emerald-900,
+#app[data-theme="dark"] .text-green-800,
+#app[data-theme="dark"] .text-green-900,
+#app[data-theme="dark"] .text-teal-800,
+#app[data-theme="dark"] .text-teal-900,
+#app[data-theme="dark"] .text-\[\#14532d\],
+#app[data-theme="dark"] .text-\[\#064e3b\],
+#app[data-theme="dark"] .text-\[\#166534\],
+#app[data-theme="dark"] .text-\[\#065f46\] {
+    color: var(--ax-muted) !important;
+}
+
+#app[data-theme="dark"] .text-emerald-600,
+#app[data-theme="dark"] .text-emerald-700,
+#app[data-theme="dark"] .text-\[\#0e883f\] {
+    color: var(--ax-violet-light) !important;
+}
+
+#app[data-theme="dark"] .bg-white {
+    background-color: var(--ax-panel) !important;
+    border-color: var(--ax-border) !important;
+}
+
+#app[data-theme="dark"] .border-gray-100,
+#app[data-theme="dark"] .border-gray-200\/80,
+#app[data-theme="dark"] .border-gray-50,
+#app[data-theme="dark"] .divide-gray-100 > :not([hidden]) ~ :not([hidden]),
+#app[data-theme="dark"] .border-\[\#d3f5df\] {
+    border-color: var(--ax-border) !important;
+}
+
+#app[data-theme="dark"] .bg-\[\#f8faf8\] {
+    background-color: var(--ax-input) !important;
+}
+
+#app[data-theme="dark"] .bg-gray-100\/70,
+#app[data-theme="dark"] .bg-gray-100\/50,
+#app[data-theme="dark"] .bg-gray-100,
+#app[data-theme="dark"] .bg-gray-50\/80,
+#app[data-theme="dark"] .bg-gray-50 {
+    background-color: var(--ax-surface) !important;
+}
+
+#app[data-theme="dark"] .bg-gray-100\/70 > .bg-white,
+#app[data-theme="dark"] .bg-gray-100\/50 > .bg-white {
+    background-color: var(--ax-panel) !important; 
+    color: var(--ax-violet-light) !important; 
+    border: none !important; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4) !important; 
+}
+
+#app[data-theme="dark"] .focus\:border-emerald-500:focus {
+    border-color: var(--ax-violet) !important;
+}
+#app[data-theme="dark"] .focus\:ring-emerald-500\/20:focus {
+    --tw-ring-color: rgba(139, 92, 246, 0.2) !important;
+}
+
+#app[data-theme="dark"] .bg-emerald-100\/70,
+#app[data-theme="dark"] .bg-\[\#dcfce7\] {
+    background-color: var(--ax-violet-soft) !important;
+    color: var(--ax-violet-light) !important;
+}
+
+#app[data-theme="dark"] .bg-\[\#e8faf0\] {
+    background-color: var(--ax-violet-soft) !important;
+    border-color: var(--ax-violet-mid) !important;
+}
+
+#app[data-theme="dark"] .bg-\[\#129a48\],
+#app[data-theme="dark"] .bg-emerald-500,
+#app[data-theme="dark"] .bg-\[\#12a34a\] {
+    background-color: var(--ax-violet) !important;
+}
+
+
+#app[data-theme="dark"] .text-\[\#12a34a\] {
+    color: var(--ax-violet-light) !important;
+}
+
+#app[data-theme="dark"] button:hover,
+#app[data-theme="dark"] a:hover,
+#app[data-theme="dark"] .cursor-pointer:hover {
+    opacity: 0.8 !important;
+    transition: opacity 0.2s ease-in-out !important;
+}
+
+#app[data-theme="dark"] .hover\:bg-gray-50:hover,
+#app[data-theme="dark"] .hover\:bg-gray-100:hover {
+    background-color: var(--ax-border) !important;
+}

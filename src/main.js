@@ -4,5 +4,5 @@ import { startRouter } from './router/router.js';
 const app = document.querySelector('#app');
 
 if (app) {
-	startRouter(app);
+    startRouter(app);
 }

@@ -14,21 +14,47 @@ const iconPaths = {
 const icon = (name, className = 'block size-5 shrink-0') => `<svg class="${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconPaths[name]}</svg>`;
 
 export function renderStudentSidebar(activePage = 'dashboard') {
-	const navLink = (page, label, iconName, href) => {
-		const active = activePage === page;
-		return `<a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] ${active ? 'bg-[#dcfce7] font-semibold text-[#078337]' : 'text-[#68766c]'} px-[11px] text-xs max-[640px]:justify-center max-[640px]:px-0" href="${href}" ${active ? 'aria-current="page"' : ''} aria-label="${label}">${icon(iconName, 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">${label}</span></a>`;
-	};
-	return `<aside class="fixed inset-y-0 left-0 z-20 flex w-[232px] flex-col overflow-y-auto border-r border-[#e0e8df] bg-white px-[17px] py-[25px] max-[760px]:w-[190px] max-[760px]:px-3 max-[640px]:w-16 max-[640px]:items-center max-[640px]:px-1.5 max-[640px]:py-3" aria-label="Navegação principal">
-		<a class="mb-[34px] flex h-[52px] cursor-pointer items-center max-[640px]:mb-5 max-[640px]:h-10" href="#/student/dashboard" aria-label="AcademyX, dashboard"><img class="h-[52px] w-[196px] object-contain object-left max-[760px]:w-[165px] max-[640px]:hidden" src="/logo.svg" data-logo-light="/logo.svg" data-logo-dark="/logo-dark.svg" alt="AcademyX — Aprender é avançar"><span class="hidden text-lg font-bold tracking-tight text-[#078337] max-[640px]:block">AX</span></a>
-		<div class="flex min-h-14 items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-[#f8faf7] px-2.5 py-[9px] text-[#637168] max-[640px]:min-h-10 max-[640px]:w-10 max-[640px]:justify-center max-[640px]:p-0">${icon('building', 'block size-[18px] shrink-0')}<span class="max-[640px]:hidden"><strong class="block text-[11px] font-semibold text-[#243027]">Instituto Horizonte</strong><small class="mt-[3px] block text-[10px]">2º semestre · 2026</small></span></div>
-		<div class="mb-2 mt-[29px] text-[9px] font-semibold text-[#68766c] max-[640px]:hidden">ESPAÇO DE APRENDIZAGEM</div>
-		<nav class="grid w-full gap-1 max-[640px]:mt-3">${navLink('dashboard', 'Dashboard', 'grid', '#/student/dashboard')}${navLink('focus', 'Foco', 'timer', '#/student/focus')}<a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Disciplinas">${icon('book', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Disciplinas</span></a><a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Ranking">${icon('trophy', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Ranking</span></a><a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Fórum de dúvidas">${icon('chat', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Fórum de dúvidas</span></a></nav>
-		<div class="mt-[21px] grid gap-[5px] rounded-2xl border border-[#e0e8df] p-[15px] max-[640px]:hidden"><strong class="text-[11px] font-semibold">Área do aluno</strong><span class="text-[10px] text-[#68766c]">Estude, avance e conquiste XP.</span></div>
-		<div class="mt-auto grid gap-[13px] text-[11px] text-[#68766c] max-[640px]:w-full max-[640px]:justify-items-center">
-			<label class="flex min-h-7 cursor-pointer items-center gap-2.5 border-b border-[#e0e8df] pb-3 max-[640px]:w-full max-[640px]:justify-center max-[640px]:gap-2 max-[640px]:pb-2" title="Alternar tema claro ou escuro">${icon('moon', 'block size-4 shrink-0')}<span class="max-[640px]:hidden" data-theme-label>Tema claro</span><input class="peer sr-only" type="checkbox" data-theme-toggle aria-label="Ativar tema escuro"><span class="relative ml-auto inline-flex h-4 w-7 shrink-0 rounded-full bg-[#d5dfd5] transition-colors after:absolute after:left-[2px] after:top-[2px] after:size-3 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-[#8b5cf6] peer-checked:after:translate-x-3 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#8b5cf6] max-[640px]:ml-0" aria-hidden="true"></span></label>
-			<a class="cursor-pointer text-inherit hover:text-green-800 hover:underline max-[640px]:hidden" href="#" aria-disabled="true">Central de ajuda</a><a class="cursor-pointer text-inherit hover:text-green-800 hover:underline max-[640px]:hidden" href="#/login">Sair da conta</a><a class="hidden cursor-pointer text-[#68766c] max-[640px]:block" href="#/login" aria-label="Sair da conta">${icon('logout')}</a><small class="mt-[5px] text-[9px] max-[640px]:hidden">AcademyX © 2026 · Feito para evoluir</small>
-		</div>
-	</aside>`;
+    const navLink = (page, label, iconName, href) => {
+        const active = activePage === page;
+        return `<a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] ${active ? 'bg-[#dcfce7] font-semibold text-[#078337]' : 'text-[#68766c]'} px-[11px] text-xs max-[640px]:justify-center max-[640px]:px-0" href="${href}" ${active ? 'aria-current="page"' : ''} aria-label="${label}">${icon(iconName, 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">${label}</span></a>`;
+    };
+
+    return `<aside class="fixed inset-y-0 left-0 z-20 flex w-[232px] flex-col overflow-y-auto border-r border-[#e0e8df] bg-white px-[17px] py-[25px] max-[760px]:w-[190px] max-[760px]:px-3 max-[640px]:w-16 max-[640px]:items-center max-[640px]:px-1.5 max-[640px]:py-3" aria-label="Navegação principal">
+        <a class="mb-[34px] flex h-[52px] cursor-pointer items-center max-[640px]:mb-5 max-[640px]:h-10" href="#/student/dashboard" aria-label="AcademyX, dashboard"><img class="h-[52px] w-[196px] object-contain object-left max-[760px]:w-[165px] max-[640px]:hidden" src="/logo.svg" data-logo-light="/logo.svg" data-logo-dark="/logo-dark.svg" alt="AcademyX — Aprender é avançar"><span class="hidden text-lg font-bold tracking-tight text-[#078337] max-[640px]:block">AX</span></a>
+        
+        <div class="flex min-h-14 items-center gap-2.5 rounded-[11px] border border-[#e0e8df] bg-[#f8faf7] px-2.5 py-[9px] text-[#637168] max-[640px]:min-h-10 max-[640px]:w-10 max-[640px]:justify-center max-[640px]:p-0">
+            ${icon('building', 'block size-[18px] shrink-0')}
+            <span class="max-[640px]:hidden"><strong class="block text-[11px] font-semibold text-[#243027]">Instituto Horizonte</strong><small class="mt-[3px] block text-[10px]">2º semestre · 2026</small></span>
+        </div>
+        
+        <div class="mb-2 mt-[29px] text-[9px] font-semibold text-[#68766c] max-[640px]:hidden">ESPAÇO DE APRENDIZAGEM</div>
+        
+        <nav class="grid w-full gap-1 max-[640px]:mt-3">
+            ${navLink('dashboard', 'Dashboard', 'grid', '#/student/dashboard')}
+            ${navLink('focus', 'Foco', 'timer', '#/student/focus')}
+            ${navLink('discipline', 'Disciplinas', 'book', '#/student/discipline')}
+            <a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Ranking">${icon('trophy', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Ranking</span></a>
+            <a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Fórum de dúvidas">${icon('chat', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Fórum de dúvidas</span></a>
+        </nav>
+        
+        <div class="mt-[21px] grid gap-[5px] rounded-2xl border border-[#e0e8df] p-[15px] max-[640px]:hidden">
+            <strong class="text-[11px] font-semibold">Área do aluno</strong>
+            <span class="text-[10px] text-[#68766c]">Estude, avance e conquiste XP.</span>
+        </div>
+        
+        <div class="mt-auto grid gap-[13px] text-[11px] text-[#68766c] max-[640px]:w-full max-[640px]:justify-items-center">
+            <label class="flex min-h-7 cursor-pointer items-center gap-2.5 border-b border-[#e0e8df] pb-3 max-[640px]:w-full max-[640px]:justify-center max-[640px]:gap-2 max-[640px]:pb-2" title="Alternar tema claro ou escuro">
+                ${icon('moon', 'block size-4 shrink-0')}
+                <span class="max-[640px]:hidden" data-theme-label>Tema claro</span>
+                <input class="peer sr-only" type="checkbox" data-theme-toggle aria-label="Ativar tema escuro">
+                <span class="relative ml-auto inline-flex h-4 w-7 shrink-0 rounded-full bg-[#d5dfd5] transition-colors after:absolute after:left-[2px] after:top-[2px] after:size-3 after:rounded-full after:bg-white after:shadow-sm after:transition-transform peer-checked:bg-[#8b5cf6] peer-checked:after:translate-x-3 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#8b5cf6] max-[640px]:ml-0" aria-hidden="true"></span>
+            </label>
+            <a class="cursor-pointer text-inherit hover:text-green-800 hover:underline max-[640px]:hidden" href="#" aria-disabled="true">Central de ajuda</a>
+            <a class="cursor-pointer text-inherit hover:text-green-800 hover:underline max-[640px]:hidden" href="#/login">Sair da conta</a>
+            <a class="hidden cursor-pointer text-[#68766c] max-[640px]:block" href="#/login" aria-label="Sair da conta">${icon('logout', 'block size-[19px] shrink-0')}</a>
+            <small class="mt-[5px] text-[9px] max-[640px]:hidden">AcademyX © 2026 · Feito para evoluir</small>
+        </div>
+    </aside>`;
 }
 
 export function renderStudentHeader(pageLabel = 'Dashboard') {
