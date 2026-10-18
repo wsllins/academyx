@@ -1,3 +1,6 @@
+import { authenticate } from '../services/api-service.js';
+import { setCurrentUser } from '../state/auth-state.js';
+
 const icon = (name, className = 'size-5') => {
 	const paths = {
 		mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
@@ -61,21 +64,23 @@ export default function renderLogin() {
 					<h2 class="text-[28px] font-semibold leading-tight tracking-[-0.035em]">Bom ter você de volta.</h2>
 					<p class="text-[13px] leading-[1.45] text-[#69776d]">Entre na AcademyX com o seu e-mail.</p>
 				</div>
-				<form id="login-form" class="flex flex-col gap-5 lg:gap-4">
+				<form id="login-form" class="flex flex-col gap-5 lg:gap-4" novalidate>
 					<label class="flex flex-col gap-2 text-xs font-semibold text-[#26352a]" for="email">
 						E-mail
 						<span class="flex h-12 items-center gap-2.5 rounded-[10px] border border-[#e4eae2] bg-[#f8faf7] px-[14px] text-[#718077] transition focus-within:border-green-600 focus-within:ring-2 focus-within:ring-green-100">
 							${icon('mail', 'size-[18px] shrink-0')}
-							<input id="email" name="email" type="email" autocomplete="username" placeholder="seu.email@email.com" required class="min-w-0 flex-1 bg-transparent text-xs font-normal text-[#26352a] outline-none placeholder:text-[#77847a]" />
+							<input id="email" name="email" type="email" autocomplete="username" placeholder="seu.email@email.com" aria-describedby="email-error" required class="min-w-0 flex-1 bg-transparent text-xs font-normal text-[#26352a] outline-none placeholder:text-[#77847a]" />
 						</span>
+						<p id="email-error" class="hidden text-[11px] font-normal text-red-700" role="alert"></p>
 					</label>
 					<label class="flex flex-col gap-2 text-xs font-semibold text-[#26352a]" for="password">
 						Senha
 						<span class="flex h-12 items-center gap-2.5 rounded-[10px] border border-[#e4eae2] bg-[#f8faf7] px-[14px] text-[#718077] transition focus-within:border-green-600 focus-within:ring-2 focus-within:ring-green-100">
 							${icon('lock', 'size-[18px] shrink-0')}
-							<input id="password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" required class="min-w-0 flex-1 bg-transparent text-xs font-normal text-[#26352a] outline-none placeholder:text-[#77847a]" />
+							<input id="password" name="password" type="password" autocomplete="current-password" placeholder="Digite sua senha" aria-describedby="password-error" required class="min-w-0 flex-1 bg-transparent text-xs font-normal text-[#26352a] outline-none placeholder:text-[#77847a]" />
 							<button id="toggle-password" type="button" class="rounded p-1 text-[#718077] hover:text-green-700 focus-visible:outline-2 focus-visible:outline-green-600" aria-label="Mostrar senha" aria-pressed="false">${icon('eye', 'size-[18px]')}</button>
 						</span>
+						<p id="password-error" class="hidden text-[11px] font-normal text-red-700" role="alert"></p>
 					</label>
 					<div class="flex min-h-[17px] items-center justify-between gap-3 text-xs">
 						<label for="remember" class="flex cursor-pointer items-center gap-2 text-[#354238]">
@@ -110,6 +115,23 @@ export function bindLoginInteractions(root) {
 	const form = root.querySelector('#login-form');
 	const feedback = root.querySelector('#login-feedback');
 	const recovery = root.querySelector('#forgot-password');
+	const submitButton = form.querySelector('[type="submit"]');
+	const originalButtonContent = submitButton.innerHTML;
+	let isSubmitting = false;
+
+	const showFeedback = (message, kind = 'info') => {
+		feedback.textContent = message;
+		feedback.classList.remove('hidden', 'text-red-700', 'text-[#66766b]', 'text-green-700');
+		feedback.classList.add(kind === 'error' ? 'text-red-700' : kind === 'success' ? 'text-green-700' : 'text-[#66766b]');
+		feedback.setAttribute('role', kind === 'error' ? 'alert' : 'status');
+	};
+
+	const setFieldError = (field, message) => {
+		const error = root.querySelector(`#${field.id}-error`);
+		field.setAttribute('aria-invalid', String(Boolean(message)));
+		error.textContent = message;
+		error.classList.toggle('hidden', !message);
+	};
 
 	toggle?.addEventListener('click', () => {
 		const isPassword = password.type === 'password';
@@ -118,15 +140,61 @@ export function bindLoginInteractions(root) {
 		toggle.setAttribute('aria-label', isPassword ? 'Ocultar senha' : 'Mostrar senha');
 	});
 
-	form?.addEventListener('submit', (event) => {
+	form?.addEventListener('input', (event) => {
+		if (event.target.matches('#email, #password')) setFieldError(event.target, '');
+		feedback.classList.add('hidden');
+	});
+
+	form?.addEventListener('submit', async (event) => {
 		event.preventDefault();
-		feedback.textContent = 'A autenticação será disponibilizada em breve.';
-		feedback.classList.remove('hidden');
+		if (isSubmitting) return;
+
+		const email = form.elements.email;
+		const emailValue = email.value.trim();
+		const passwordValue = password.value;
+		const emailError = !emailValue
+			? 'Informe seu e-mail.'
+			: email.validity.typeMismatch
+				? 'Informe um e-mail válido.'
+				: '';
+		const passwordError = passwordValue ? '' : 'Informe sua senha.';
+
+		setFieldError(email, emailError);
+		setFieldError(password, passwordError);
+		if (emailError || passwordError) {
+			(emailError ? email : password).focus();
+			feedback.classList.add('hidden');
+			return;
+		}
+
+		isSubmitting = true;
+		submitButton.disabled = true;
+		submitButton.setAttribute('aria-busy', 'true');
+		submitButton.innerHTML = '<span class="size-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true"></span>Entrando...';
+		showFeedback('Validando suas credenciais...');
+
+		try {
+			const user = await authenticate(emailValue, passwordValue);
+			setCurrentUser(user, root.querySelector('#remember').checked);
+			showFeedback('Acesso confirmado. Redirecionando...', 'success');
+			window.setTimeout(() => {
+				window.location.hash = user.role === 'student'
+					? '/student/dashboard'
+					: user.role === 'teacher'
+						? '/teacher/dashboard'
+						: '/admin/dashboard';
+			}, 500);
+		} catch (error) {
+			showFeedback(error.message || 'Não foi possível autenticar. Tente novamente.', 'error');
+			isSubmitting = false;
+			submitButton.disabled = false;
+			submitButton.removeAttribute('aria-busy');
+			submitButton.innerHTML = originalButtonContent;
+		}
 	});
 
 	recovery?.addEventListener('click', (event) => {
 		event.preventDefault();
-		feedback.textContent = 'Essa funcionalidade será disponibilizada em breve.';
-		feedback.classList.remove('hidden');
+		showFeedback('A recuperação de senha ainda não está disponível.');
 	});
 }

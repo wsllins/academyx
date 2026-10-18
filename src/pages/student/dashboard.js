@@ -419,4 +419,5 @@ export function bindStudentDashboard(root) {
 	root.querySelectorAll('[aria-disabled="true"]').forEach((link) => {
 		link.addEventListener('click', (event) => event.preventDefault());
 	});
+
 }

@@ -1,3 +1,5 @@
+import { clearCurrentUser } from '../state/auth-state.js';
+
 const iconPaths = {
 	building: '<path d="M3 21h18M5 21V7l7-4v18m7 0V11l-7-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M15 13v.01M15 16v.01"/>',
 	grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
@@ -86,4 +88,9 @@ export function bindStudentShell(root) {
 	});
 	applyTheme();
 	root.querySelectorAll('[aria-disabled="true"]').forEach((link) => link.addEventListener('click', (event) => event.preventDefault()));
+	root.querySelectorAll('a[href="#/login"]').forEach((link) => link.addEventListener('click', (event) => {
+		event.preventDefault();
+		clearCurrentUser();
+		window.location.hash = '/login';
+	}));
 }
