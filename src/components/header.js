@@ -39,7 +39,7 @@ export function renderStudentSidebar(activePage = 'dashboard') {
             ${navLink('dashboard', 'Dashboard', 'grid', '#/student/dashboard')}
             ${navLink('focus', 'Foco', 'timer', '#/student/focus')}
             ${navLink('discipline', 'Disciplinas', 'book', '#/student/discipline')}
-            <a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Ranking">${icon('trophy', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Ranking</span></a>
+            ${navLink('ranking', 'Ranking', 'trophy', '#/student/ranking')}
             <a class="flex h-[45px] cursor-pointer items-center gap-[11px] rounded-[10px] px-[11px] text-xs text-[#68766c] max-[640px]:justify-center max-[640px]:px-0" href="#" aria-disabled="true" aria-label="Fórum de dúvidas">${icon('chat', 'block size-[19px] shrink-0')}<span class="max-[640px]:hidden">Fórum de dúvidas</span></a>
         </nav>
         

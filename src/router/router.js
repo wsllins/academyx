@@ -2,6 +2,7 @@ import renderLogin, { bindLoginInteractions } from '../pages/login.js';
 import renderStudentDashboard, { bindStudentDashboard } from '../pages/student/dashboard.js';
 import { renderStudentDisciplinePage, bindStudentDisciplinePage } from '../pages/student/discipline.js';
 import renderStudentFocus, { bindStudentFocus } from '../pages/student/focus.js';
+import renderStudentRanking, { bindStudentRanking } from '../pages/student/ranking.js';
 import renderTeacherDashboard, { bindTeacherDashboard } from '../pages/teacher/dashboard.js';
 import renderAdminDashboard, { bindAdminDashboard } from '../pages/admin/dashboard.js';
 import { getCurrentUser } from '../state/auth-state.js';
@@ -17,6 +18,7 @@ const routes = {
 	'/student/dashboard': { render: renderStudentDashboard, bind: bindStudentDashboard, role: 'student' },
 	'/student/discipline': { render: renderStudentDisciplinePage, bind: bindStudentDisciplinePage, role: 'student' },
 	'/student/focus': { render: renderStudentFocus, bind: bindStudentFocus, role: 'student' },
+	'/student/ranking': { render: renderStudentRanking, bind: bindStudentRanking, role: 'student' },
 	'/teacher/dashboard': { render: renderTeacherDashboard, bind: bindTeacherDashboard, role: 'teacher' },
 	'/admin/dashboard': { render: renderAdminDashboard, bind: bindAdminDashboard, role: 'admin' },
 };
