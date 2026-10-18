@@ -21,6 +21,7 @@
    only while the persisted theme switch is enabled. */
 #app[data-theme="dark"] [class*="bg-[#f7faf7]"] { background-color: var(--ax-canvas); }
 #app[data-theme="dark"] [class*="bg-[#f8faf7]"] { background-color: var(--ax-input); }
+#app[data-theme="dark"] > main[class*="bg-[#f8faf7]"] { background-color: var(--ax-canvas); }
 #app[data-theme="dark"] [class*="bg-[#f0f4ef]"] { background-color: var(--ax-surface); }
 #app[data-theme="dark"] [class~="bg-white"] { background-color: var(--ax-panel); }
 #app[data-theme="dark"] [class*="bg-[#dcfce7]"] { background-color: var(--ax-violet-soft); }
@@ -40,7 +41,9 @@
 #app[data-theme="dark"] [class*="border-[#12a34a]"] { border-color: var(--ax-violet); }
 
 #app[data-theme="dark"] [class*="text-[#19241c]"],
-#app[data-theme="dark"] [class*="text-[#243027]"] { color: var(--ax-text); }
+#app[data-theme="dark"] [class*="text-[#243027]"],
+#app[data-theme="dark"] [class*="text-[#17251b]"],
+#app[data-theme="dark"] [class*="text-[#26352a]"] { color: var(--ax-text); }
 #app[data-theme="dark"] [class*="text-[#078337]"],
 #app[data-theme="dark"] [class*="text-[#079840]"],
 #app[data-theme="dark"] [class*="text-[#12a34a]"] { color: var(--ax-violet-light); }
@@ -50,7 +53,16 @@
 #app[data-theme="dark"] [class*="text-[#66746a]"],
 #app[data-theme="dark"] [class*="text-[#708078]"],
 #app[data-theme="dark"] [class*="text-[#718077]"],
-#app[data-theme="dark"] [class*="text-[#c4d0c5]"] { color: var(--ax-muted); }
+#app[data-theme="dark"] [class*="text-[#c4d0c5]"],
+#app[data-theme="dark"] [class*="text-[#69776d]"],
+#app[data-theme="dark"] [class*="text-[#66766b]"],
+#app[data-theme="dark"] [class*="text-[#748078]"],
+#app[data-theme="dark"] [class*="text-[#354238]"],
+#app[data-theme="dark"] [class*="text-[#77847a]"] { color: var(--ax-muted); }
+
+#app[data-theme="dark"] [class*="text-[#15803d]"],
+#app[data-theme="dark"] [class*="text-green-600"],
+#app[data-theme="dark"] [class*="text-green-700"] { color: var(--ax-violet-light); }
 
 #app[data-theme="dark"] [class*="bg-[#fff7e6]"] { background-color: #302817; }
 #app[data-theme="dark"] [class*="text-[#9a6700]"],
@@ -60,6 +72,14 @@
 #app[data-theme="dark"] [class*="border-[#fee2e2]"] { border-color: #533034; }
 #app[data-theme="dark"] [class*="border-[#fecaca]"] { border-color: #743d42; }
 #app[data-theme="dark"] [class*="text-[#b42318]"] { color: #fca5a5; }
+#app[data-theme="dark"] [class*="bg-[#16a34a]"] { background-color: var(--ax-violet); }
+#app[data-theme="dark"] [class*="border-[#d8e8dc]"],
+#app[data-theme="dark"] [class*="border-[#e4eae2]"],
+#app[data-theme="dark"] [class*="border-[#dce5dc]"] { border-color: var(--ax-border); }
+#app[data-theme="dark"] [class*="focus-within:border-green-600"]:focus-within { border-color: var(--ax-violet); }
+#app[data-theme="dark"] [class*="focus-within:ring-green-100"]:focus-within { --tw-ring-color: rgb(139 92 246 / 20%); }
+#app[data-theme="dark"] [class*="focus-visible:outline-green-700"]:focus-visible { outline-color: var(--ax-violet); }
+#app[data-theme="dark"] [class*="hover:bg-green-700"]:hover { background-color: #7c3aed; }
 
 #app[data-theme="dark"] [class*="hover:text-green-800"]:hover { color: var(--ax-violet-light); }
 #app[data-theme="dark"] input,
