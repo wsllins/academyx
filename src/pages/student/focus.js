@@ -177,11 +177,11 @@ function editPanel(session) {
 }
 
 function focusPage() {
-	return `<div class="h-dvh w-full min-w-0 overflow-hidden bg-[#f7faf7] font-[Inter,ui-sans-serif,system-ui] text-[#19241c]">${renderStudentSidebar('focus')}<div class="ml-[232px] flex h-full min-w-0 flex-col max-[760px]:ml-[190px] max-[640px]:ml-16">${renderStudentHeader('Foco')}<main class="min-w-0 flex-1 overflow-auto px-8 py-[27px] [scrollbar-color:#c4d0c5_transparent] [scrollbar-width:thin] max-[1100px]:px-6 max-[760px]:px-4 max-[640px]:px-3 max-[640px]:py-4"><div class="mb-[20px] flex flex-wrap items-center justify-between gap-4"><div><h1 class="m-0 text-[30px] leading-[1.2] font-bold tracking-[-1px] max-[760px]:text-[24px]">Foco no que faz você avançar.</h1><p class="mt-1.5 text-sm text-[#68766c] max-[760px]:text-xs">Olá, Lucas. Dê tempo ao seu aprendizado e mantenha seu estudo em dia.</p></div><button class="flex h-10 cursor-pointer items-center gap-2 rounded-[10px] border border-[#e0e8df] bg-white px-3 text-[11px] font-semibold text-[#078337]" type="button" data-scroll-manual>${icon('plus')}Adicionar sessão manual</button></div>
+	return `<div class="h-dvh w-full min-w-0 overflow-hidden bg-[#f7faf7] font-[Inter,ui-sans-serif,system-ui] text-[#19241c]">${renderStudentSidebar('focus')}<div class="ml-[232px] flex h-full min-w-0 flex-col max-[760px]:ml-[190px] max-[640px]:ml-16">${renderStudentHeader('Foco')}<main class="min-w-0 flex-1 overflow-auto px-8 py-[27px] [scrollbar-color:#c4d0c5_transparent] [scrollbar-width:thin] max-[1100px]:px-6 max-[760px]:px-4 max-[640px]:px-3 max-[640px]:py-4"><div class="mb-[20px] flex flex-wrap items-center justify-between gap-4"><div><h1 class="m-0 text-[30px] leading-[1.2] font-bold tracking-[-1px] max-[760px]:text-[24px]">Foco no que faz você avançar.</h1><p class="mt-1.5 text-sm text-[#68766c] max-[760px]:text-xs">Olá, Lucas. Dê tempo ao seu aprendizado e mantenha seu estudo em dia.</p></div></div>
 		<div class="grid grid-cols-[minmax(0,1.8fr)_minmax(320px,.98fr)] items-stretch gap-5 max-[1050px]:grid-cols-1">${focusSessionPanel()}${manualPanel()}</div>
 		<div class="my-[18px]">${weekSummary()}</div>
 		<div class="grid grid-cols-[minmax(0,1.8fr)_minmax(320px,.98fr)] items-start gap-5 max-[1050px]:grid-cols-1">${historyPanel()}</div>
-		<footer class="mt-4 pb-2 text-[10px] text-[#68766c]">Somente disciplinas vinculadas ao seu cadastro · Dados fictícios · Atualizado em 12 out. 2026, às 08:30</footer></main></div></div>`;
+		<footer class="mt-4 pb-2 text-[10px] text-[#68766c]">Somente disciplinas vinculadas ao seu cadastro</footer></main></div></div>`;
 }
 
 export default function renderStudentFocus() {
