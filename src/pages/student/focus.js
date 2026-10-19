@@ -53,8 +53,8 @@ const getInitialState = () => {
 let sessions = getInitialState();
 let selectedSubject = 'Matemática';
 let selectedActivity = activities[0];
-let elapsedSeconds = 42 * 60 + 18;
-let timerStatus = 'paused';
+let elapsedSeconds = 0;
+let timerStatus = 'ready';
 let timerStartedAt = null;
 let timerHandle = null;
 let editId = sessions[0]?.id ?? null;
@@ -88,7 +88,7 @@ function subjectCards() {
 function activityCards() {
 	return activities.map((activity) => {
 		const selected = selectedActivity === activity;
-		return `<button class="flex min-h-10 cursor-pointer items-center gap-2 rounded-[10px] border ${selected ? 'border-[#12a34a] bg-[#dcfce7] text-[#078337]' : 'border-[#e0e8df] bg-[#f8faf7] text-[#536259]'} px-2.5 text-left text-[10px]" type="button" data-activity="${activity}" aria-pressed="${selected}"><span class="grid size-2.5 shrink-0 place-items-center rounded-full ${selected ? 'bg-[#12a34a]' : 'border border-[#d5dfd5] bg-white'}"></span>${activity}</button>`;
+		return `<button class="flex min-h-10 cursor-pointer items-center gap-2 rounded-[10px] border ${selected ? 'border-[#12a34a] bg-[#dcfce7] text-[#078337]' : 'border-[#e0e8df] bg-[#f8faf7] text-[#536259]'} px-2.5 text-left text-[10px]" type="button" role="radio" aria-checked="${selected}" data-activity="${activity}" aria-pressed="${selected}"><span class="grid size-3 place-items-center rounded-full border ${selected ? 'border-[#12a34a] bg-[#12a34a]' : 'border-[#d5dfd5] bg-white'}">${selected ? '<span class="size-1.5 rounded-full bg-white"></span>' : ''}</span>${activity}</button>`;
 	}).join('');
 }
 
@@ -121,14 +121,14 @@ function focusSessionPanel() {
 		<div class="flex items-center justify-between gap-3"><h2 id="ax-focus-heading" class="m-0 flex items-center gap-2.5 text-lg font-semibold tracking-[-.3px]">${icon('check', 'size-[19px] text-[#12a34a]')}Sua sessão de foco</h2><span class="rounded-lg bg-[#fff7e6] px-2.5 py-1.5 text-[9px] font-medium text-[#9a6700]">${status}</span></div>
 		<div class="mt-4 flex items-center justify-between gap-3"><label class="text-[11px] font-medium">Disciplina *</label><span class="text-[9px] text-[#68766c]">Suas 3 disciplinas</span></div>
 		<div class="mt-2 grid grid-cols-3 gap-2.5 max-[400px]:grid-cols-1">${subjectCards()}</div>
-		<div class="mt-4 text-[11px] font-medium">Tipo de atividade *</div><div class="mt-2 grid grid-cols-3 gap-2.5 max-[500px]:grid-cols-1">${activityCards()}</div>
+		<div class="mt-4 text-[11px] font-medium">Tipo de atividade *</div><div class="mt-2 grid grid-cols-3 gap-2.5 max-[500px]:grid-cols-1" role="radiogroup" aria-label="Tipo de atividade">${activityCards()}</div>
 		<div class="mt-4 grid min-h-[154px] place-items-center rounded-[13px] bg-[#f7faf7] px-3 py-4 text-center"><div><div class="text-[9px] font-semibold text-[#68766c]">TEMPO EFETIVO DE ESTUDO</div><div class="mt-1 text-[58px] leading-none font-bold tracking-[-2px] tabular-nums max-[500px]:text-[46px]" data-timer>${timerText(elapsed)}</div><p class="mt-2 flex items-center justify-center gap-2 text-[10px] text-[#68766c]">${timerStatus === 'running' ? icon('clock', 'size-3.5') : timerStatus === 'paused' ? pauseIcon('h-3 w-[9px] shrink-0') : icon('play', 'size-3.5')}<span data-timer-subtitle>${timerStatus === 'running' ? 'Cronômetro ativo · pausas não contam como estudo' : timerStatus === 'paused' ? 'Pausas não contam como tempo de estudo' : 'Inicie uma sessão quando estiver pronto'}</span></p><p class="mt-1 text-[9px] text-[#68766c]">Disciplina: ${selectedSubject} · ${selectedActivity}</p></div></div>
 		<div class="mt-4 flex flex-wrap justify-center gap-2.5">
 			${timerStatus === 'running' ? `<button class="h-10 cursor-pointer rounded-[10px] border border-[#e0e8df] bg-[#f0f4ef] px-4 text-[11px] font-semibold text-[#536259]" type="button" data-timer-action="pause">${pauseIcon('mr-1 inline h-3 w-[9px] align-middle')}Pausar sessão</button>` : timerStatus === 'paused' ? `<button class="h-10 cursor-pointer rounded-[10px] border-0 bg-[#12a34a] px-4 text-[11px] font-semibold text-white" type="button" data-timer-action="resume">${icon('play', 'mr-1 inline size-4 align-middle')}Retomar sessão</button>` : `<button class="h-10 cursor-pointer rounded-[10px] border-0 bg-[#12a34a] px-4 text-[11px] font-semibold text-white" type="button" data-timer-action="start">${icon('play', 'mr-1 inline size-4 align-middle')}Iniciar sessão</button>`}
-			${timerStatus !== 'finished' ? `<button class="h-10 cursor-pointer rounded-[10px] border border-[#e0e8df] bg-white px-4 text-[11px] font-medium text-[#078337]" type="button" data-timer-action="finish">${icon('check', 'mr-1 inline size-4 align-middle')}Concluir e salvar</button>` : ''}
+			${timerStatus !== 'ready' ? `<button class="h-10 cursor-pointer rounded-[10px] border border-[#e0e8df] bg-white px-4 text-[11px] font-medium text-[#078337]" type="button" data-timer-action="finish">${icon('check', 'mr-1 inline size-4 align-middle')}Concluir e salvar</button>` : ''}
 		</div>
 		<p class="mt-3 text-center text-[10px] text-[#68766c]">Ao pausar, o tempo deixa de contar. Conclua para registrar no histórico.</p>
-		<div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[#e0e8df] pt-4"><p class="text-[10px] leading-5"><strong>* Disciplina e atividade são obrigatórias.</strong><span class="block text-[#68766c]">Sessões pausadas e alterações não salvas não entram nos totais.</span></p><button class="h-10 cursor-pointer rounded-[10px] border border-[#e0e8df] bg-[#f0f4ef] px-3 text-[10px] font-medium text-[#536259]" type="button" data-timer-action="new" ${timerStatus !== 'finished' ? 'disabled' : ''}>${icon('play', 'mr-1 inline size-4 align-middle')}Iniciar nova sessão</button></div>
+		<div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-[#e0e8df] pt-4"><p class="text-[10px] leading-5"><strong>* Disciplina e atividade são obrigatórias.</strong><span class="block text-[#68766c]">Sessões pausadas e alterações não salvas não entram nos totais.</span><span class="block text-[#68766c]">Use “Iniciar nova sessão” para descartar o tempo pausado e recomeçar do zero, sem salvar.</span></p><button class="h-10 cursor-pointer rounded-[10px] border border-[#e0e8df] bg-[#f0f4ef] px-3 text-[10px] font-medium text-[#536259] disabled:cursor-not-allowed disabled:opacity-50" type="button" data-timer-action="new" ${timerStatus !== 'paused' ? 'disabled' : ''}>${icon('play', 'mr-1 inline size-4 align-middle')}Iniciar nova sessão</button></div>
 	</section>`;
 }
 
@@ -188,6 +188,14 @@ export default function renderStudentFocus() {
 	return focusPage();
 }
 
+function rerenderFocus(root) {
+	const scrollTop = root.querySelector('main')?.scrollTop ?? 0;
+	root.innerHTML = focusPage();
+	bindStudentFocus(root);
+	const main = root.querySelector('main');
+	if (main) main.scrollTop = scrollTop;
+}
+
 export function bindStudentFocus(root) {
 	bindStudentShell(root);
 	if (timerHandle) clearInterval(timerHandle);
@@ -202,37 +210,37 @@ export function bindStudentFocus(root) {
 	root.onclick = (event) => {
 		const target = event.target.closest('button');
 		if (!target || !root.contains(target)) return;
-		if (target.dataset.subject) { selectedSubject = target.dataset.subject; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
-		if (target.dataset.activity) { selectedActivity = target.dataset.activity; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
-		if (target.dataset.addMode) { addMode = target.dataset.addMode; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
+		if (target.dataset.subject) { selectedSubject = target.dataset.subject; rerenderFocus(root); return; }
+		if (target.dataset.activity) { selectedActivity = target.dataset.activity; rerenderFocus(root); return; }
+		if (target.dataset.addMode) { addMode = target.dataset.addMode; rerenderFocus(root); return; }
 		if (target.dataset.timerAction) {
 			const action = target.dataset.timerAction;
 			if (action === 'pause' && timerStatus === 'running') { elapsedSeconds = getElapsedSeconds(); timerStatus = 'paused'; timerStartedAt = null; }
 			if (action === 'resume' && timerStatus === 'paused') { timerStatus = 'running'; timerStartedAt = Date.now(); }
-			if (action === 'start' && timerStatus === 'finished') { elapsedSeconds = 0; timerStatus = 'running'; timerStartedAt = Date.now(); }
-			if (action === 'new' && timerStatus === 'finished') { elapsedSeconds = 0; timerStatus = 'paused'; timerStartedAt = null; }
-			if (action === 'finish' && timerStatus !== 'finished') {
+			if (action === 'start' && timerStatus === 'ready') { elapsedSeconds = 0; timerStatus = 'running'; timerStartedAt = Date.now(); }
+			if (action === 'new' && timerStatus === 'paused') { elapsedSeconds = 0; timerStatus = 'ready'; timerStartedAt = null; }
+			if (action === 'finish' && timerStatus !== 'ready') {
 				const finalSeconds = getElapsedSeconds();
 				const minutes = Math.max(1, Math.round(finalSeconds / 60));
 				const now = new Date();
 				sessions.unshift({ id: `timer-${Date.now()}`, date: now.toISOString().slice(0, 10), time: now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), subject: selectedSubject, activity: selectedActivity, minutes, source: 'Cronometrada', content: 'Sessão de foco' });
-				saveSessions(); page = 1; filterSubject = 'all'; editId = sessions[0].id; elapsedSeconds = finalSeconds; timerStatus = 'finished'; timerStartedAt = null;
+				saveSessions(); page = 1; filterSubject = 'all'; editId = sessions[0].id; elapsedSeconds = 0; timerStatus = 'ready'; timerStartedAt = null;
 			}
-			root.innerHTML = focusPage(); bindStudentFocus(root); return;
+			rerenderFocus(root); return;
 		}
-		if (target.dataset.edit) { editId = target.dataset.edit; deleteId = null; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
-		if (target.dataset.closeEdit || target.dataset.discardEdit) { editId = null; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
-		if (target.dataset.delete) { deleteId = target.dataset.delete; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
-		if (target.hasAttribute('data-cancel-delete')) { deleteId = null; root.innerHTML = focusPage(); bindStudentFocus(root); return; }
+		if (target.dataset.edit) { editId = target.dataset.edit; deleteId = null; rerenderFocus(root); return; }
+		if (target.dataset.closeEdit || target.dataset.discardEdit) { editId = null; rerenderFocus(root); return; }
+		if (target.dataset.delete) { deleteId = target.dataset.delete; rerenderFocus(root); return; }
+		if (target.hasAttribute('data-cancel-delete')) { deleteId = null; rerenderFocus(root); return; }
 		if (target.hasAttribute('data-confirm-delete')) {
-			sessions = sessions.filter((session) => session.id !== deleteId); if (editId === deleteId) editId = sessions[0]?.id ?? null; deleteId = null; saveSessions(); root.innerHTML = focusPage(); bindStudentFocus(root); return;
+			sessions = sessions.filter((session) => session.id !== deleteId); if (editId === deleteId) editId = sessions[0]?.id ?? null; deleteId = null; saveSessions(); rerenderFocus(root); return;
 		}
-		if (target.dataset.page) { page += Number(target.dataset.page); root.innerHTML = focusPage(); bindStudentFocus(root); return; }
+		if (target.dataset.page) { page += Number(target.dataset.page); rerenderFocus(root); return; }
 		if (target.hasAttribute('data-scroll-manual')) root.querySelector('#ax-manual-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	};
 
 	root.onchange = (event) => {
-		if (event.target.matches('[data-history-filter]')) { filterSubject = event.target.value; page = 1; root.innerHTML = focusPage(); bindStudentFocus(root); }
+		if (event.target.matches('[data-history-filter]')) { filterSubject = event.target.value; page = 1; rerenderFocus(root); }
 	};
 
 	root.onsubmit = (event) => {
@@ -251,14 +259,14 @@ export function bindStudentFocus(root) {
 			if (!Number.isFinite(minutes) || minutes < 1) { const message = root.querySelector('[data-manual-message]'); if (message) { message.textContent = 'Informe uma duração válida maior que zero.'; message.classList.add('text-[#b42318]'); } return; }
 			const date = String(values.get('date')); const selectedActivityValue = String(values.get('activity'));
 			sessions.unshift({ id: `manual-${Date.now()}`, date, time, subject: String(values.get('subject')), activity: selectedActivityValue, minutes, source: 'Manual', content: 'Sessão adicionada manualmente' });
-			saveSessions(); page = 1; filterSubject = 'all'; editId = sessions[0].id; root.innerHTML = focusPage(); bindStudentFocus(root); return;
+			saveSessions(); page = 1; filterSubject = 'all'; editId = sessions[0].id; rerenderFocus(root); return;
 		}
 		if (form.matches('[data-edit-form]')) {
 			const session = sessions.find((item) => item.id === form.dataset.editForm);
 			if (!session) return;
 			const minutes = Number(form.querySelector('[data-edit-hours]').value || 0) * 60 + Number(form.querySelector('[data-edit-minutes]').value || 0);
 			if (!Number.isFinite(minutes) || minutes < 1) { form.querySelector('[data-edit-minutes]')?.focus(); return; }
-			session.subject = form.elements.subject.value; session.activity = form.elements.activity.value; session.minutes = minutes; saveSessions(); root.innerHTML = focusPage(); bindStudentFocus(root);
+			session.subject = form.elements.subject.value; session.activity = form.elements.activity.value; session.minutes = minutes; saveSessions(); rerenderFocus(root);
 		}
 	};
 
