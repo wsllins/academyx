@@ -1,6 +1,8 @@
 import { authenticate } from '../services/api-service.js';
 import { setCurrentUser } from '../state/auth-state.js';
 import { bindThemeToggle, renderThemeToggle } from '../components/header.js';
+const logoLight = `${import.meta.env.BASE_URL}logo.svg`; 
+const logoDark = `${import.meta.env.BASE_URL}logo-dark.svg`;
 
 const icon = (name, className = 'size-5') => {
 	const paths = {
@@ -19,7 +21,7 @@ const icon = (name, className = 'size-5') => {
 
 function brandMark() {
 	return `<div class="flex items-center gap-3" aria-label="AcademyX">
-		<img src="/logo.svg" data-logo-light="/logo.svg" data-logo-dark="/logo-dark.svg" alt="AcademyX — Aprender é avançar" class="h-10 w-[196px] object-contain object-left" />
+		<img src="/logo.svg" data-logo-light="${logoLight}" data-logo-dark="${logoDark}" alt="AcademyX — Aprender é avançar" class="h-10 w-[196px] object-contain object-left" />
 	</div>`;
 }
 

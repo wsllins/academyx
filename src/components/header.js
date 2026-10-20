@@ -1,4 +1,6 @@
 import { clearCurrentUser } from '../state/auth-state.js';
+const logoLight = `${import.meta.env.BASE_URL}logo.svg`; 
+const logoDark = `${import.meta.env.BASE_URL}logo-dark.svg`;
 
 const iconPaths = {
 	building: '<path d="M3 21h18M5 21V7l7-4v18m7 0V11l-7-4"/><path d="M9 9v.01M9 12v.01M9 15v.01M15 13v.01M15 16v.01"/>',
@@ -26,7 +28,7 @@ export function renderStudentSidebar(activePage = 'dashboard') {
     };
 
     return `<aside class="fixed inset-y-0 left-0 z-20 flex w-[232px] flex-col overflow-y-auto border-r border-[#e0e8df] bg-white px-[17px] py-[25px] max-[760px]:w-[190px] max-[760px]:px-3 max-[640px]:w-16 max-[640px]:items-center max-[640px]:px-1.5 max-[640px]:py-3" aria-label="Navegação principal">
-        <a class="mb-[34px] flex h-[52px] cursor-pointer items-center max-[640px]:mb-5 max-[640px]:h-10" href="#/student/dashboard" aria-label="AcademyX, dashboard"><img class="h-[52px] w-[196px] object-contain object-left max-[760px]:w-[165px] max-[640px]:hidden" src="/logo.svg" data-logo-light="/logo.svg" data-logo-dark="/logo-dark.svg" alt="AcademyX — Aprender é avançar"><span class="hidden text-lg font-bold tracking-tight text-[#078337] max-[640px]:block">AX</span></a>
+        <a class="mb-[34px] flex h-[52px] cursor-pointer items-center max-[640px]:mb-5 max-[640px]:h-10" href="#/student/dashboard" aria-label="AcademyX, dashboard"><img class="h-[52px] w-[196px] object-contain object-left max-[760px]:w-[165px] max-[640px]:hidden" src="/logo.svg" data-logo-light="${logoLight}" data-logo-dark="${logoDark}" alt="AcademyX — Aprender é avançar"><span class="hidden text-lg font-bold tracking-tight text-[#078337] max-[640px]:block">AX</span></a>
         
         <div class="mb-2 mt-[29px] text-[9px] font-semibold text-[#68766c] max-[640px]:hidden">ESPAÇO DE APRENDIZAGEM</div>
         
